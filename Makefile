@@ -4,6 +4,9 @@ APP_NAME="drink-delivery-api"
 docker/build:
 		docker-compose build ${APP_NAME}
 
+docker/lint:
+		docker-compose run ${APP_NAME} flake8 app/
+
 docker/run:
 		docker-compose run --service-port ${APP_NAME} python main.py
 
@@ -16,7 +19,7 @@ local/install:
 		pipenv install --dev
 
 local/lint:
-		flake8 src/
+		flake8 app/
 
 local/run:
 		python main.py
