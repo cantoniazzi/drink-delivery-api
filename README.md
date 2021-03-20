@@ -1,4 +1,4 @@
-# drink-delivery-api
+# drink-delivery-api [![main](https://github.com/cantoniazzi/drink-delivery-api/actions/workflows/main.yml/badge.svg)](https://github.com/cantoniazzi/drink-delivery-api/actions/workflows/main.yml)
 
 It's responsible for managing the registration flow of beverage distributors.
 
