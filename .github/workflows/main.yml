@@ -1,0 +1,23 @@
+name: main
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  unit-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Install dependencies
+        run: make docker/build
+
+      - name: Lint project
+        run: make docker/lint
+
+      - name: Test project
+        run: make docker/test
