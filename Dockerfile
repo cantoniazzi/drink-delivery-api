@@ -15,4 +15,4 @@ COPY . .
 FROM dependencies AS production
 COPY . /app
 
-EXPOSE 8000
+EXPOSE 5000
