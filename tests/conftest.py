@@ -28,7 +28,7 @@ def get_distributor():
             'coordinates': [10, 10]
         },
         'coverage_area': {
-            'type': 'Multipolygon',
+            'type': 'MultiPolygon',
             'coordinates': [[[[10, 10]]]]
         },
         'document': settings.get('distributor_document_fixture'),
