@@ -1,18 +1,26 @@
 from datetime import datetime
-
+from enum import Enum
 from typing import List
 from typing import Optional
 
 from pydantic import BaseModel
 
 
+class MultipolygonType(Enum):
+    MULTIPOLYGON = 'MultiPolygon'
+
+
+class PointType(Enum):
+    POINT = 'Point'
+
+
 class AddressType(BaseModel):
-    type: str
+    type: PointType
     coordinates: List[float]
 
 
 class CoverageAreaType(BaseModel):
-    type: str
+    type: MultipolygonType
     coordinates: List[List[List[List[float]]]]
 
 

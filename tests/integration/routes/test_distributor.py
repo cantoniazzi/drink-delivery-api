@@ -11,13 +11,13 @@ document_fixture = settings.get('distributor_document_fixture')
 
 
 @pytest.mark.parametrize('clear_database', [[Distributor.document == document_fixture]], indirect=True)
-def test_get_distributor_error(clear_database):
+def test_get_distributor_by_id_error(clear_database):
     response = client.get('/distributor/123')
     assert response.status_code == 404
 
 
 @pytest.mark.parametrize('clear_database', [[Distributor.document == document_fixture]], indirect=True)
-def test_get_distributor_success(clear_database, get_distributor):
+def test_get_distributor_by_id_success(clear_database, get_distributor):
     post_response = client.post('/distributor/', json=get_distributor).json()
     get_response = client.get(f"/distributor/{post_response['id']}").json()
 
@@ -26,6 +26,18 @@ def test_get_distributor_success(clear_database, get_distributor):
     assert get_response['document'] == get_distributor['document']
     assert get_response['owner_name'] == get_distributor['owner_name']
     assert get_response['trading_name'] == get_distributor['trading_name']
+
+
+@pytest.mark.parametrize('clear_database', [[Distributor.document == document_fixture]], indirect=True)
+def test_get_distributor_by_lat_long_success(clear_database, get_distributor):
+    lat = -43.3573
+    long = -22.99351
+
+    post_response = client.post('/distributor/', json=get_distributor).json()
+    get_response = client.get(f'/distributor?lat={lat}&long={long}').json()
+ 
+    assert get_response['address'] == get_distributor['address']
+    assert get_response['coverage_area'] == get_distributor['coverage_area']
 
 
 @pytest.mark.parametrize('clear_database', [[Distributor.document == document_fixture]], indirect=True)
