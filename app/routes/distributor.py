@@ -57,7 +57,6 @@ def get_distributor_by_lat_long(
     try:
         distributor = Distributor.get_by_point(db_instance, lat, long)
     except Exception as error:
-        print(error)
         logger.error(
             f'Error when trying to get distributor by lat long {str(error)}',
             extra={
