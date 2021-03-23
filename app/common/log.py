@@ -8,8 +8,9 @@ from socket import gethostname
 from sys import stdout
 from traceback import format_exc
 
-from dynaconf import settings
 import sentry_sdk
+
+from app.common.settings import settings
 
 
 def create_logger():
@@ -41,6 +42,10 @@ class LoggerFormatter(Formatter):
 
         if 'ERROR' in record.levelname and record.exc_info:
             log['_traceback'] = format_exc()
+
+        for attr in vars(record):
+            if attr[0] == '_':
+                log[attr] = getattr(record, attr)
 
         return dumps(log)
 

@@ -10,6 +10,32 @@ services:
     volumes:
       - ".:/app"
     environment:
-      - ENV_FOR_DYNACONF=development
+      ENV_FOR_DYNACONF: development
+      PG_HOST: drink-delivery-db
+      PG_USER: drink_delivery
+      PG_PASSWORD: drink_delivery
+      PG_DB: drink_delivery
+      PG_PORT: 5432
     ports:
       - "5000:5000"
+    depends_on:
+      - "drink-delivery-db"
+    networks:
+      - db_nw
+
+  drink-delivery-db:
+    build: ./database/
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: drink_delivery
+      POSTGRES_PASSWORD: drink_delivery
+      POSTGRES_DB: drink_delivery
+      POSTGRES_PORT: 5432
+    restart: always
+    networks:
+      - db_nw
+
+networks:
+  db_nw:
+    driver: bridge

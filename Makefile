@@ -10,9 +10,14 @@ docker/lint:
 docker/run:
 		docker-compose run --service-port ${APP_NAME} python main.py
 
-docker/test:
-		docker-compose run ${APP_NAME} \
-		python -m pytest -s --pyargs ./tests ./app
+docker/test-integration:
+		docker-compose run -e ENV_FOR_DYNACONF=test ${APP_NAME} \
+		python -m pytest -s --pyargs ./tests/integration -s ./app
+
+docker/test-unit:
+		docker-compose run -e ENV_FOR_DYNACONF=test ${APP_NAME} \
+		python -m pytest -s --pyargs ./tests/unit -s ./app
+
 
 ### local commands
 local/install:
