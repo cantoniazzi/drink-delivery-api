@@ -7,3 +7,4 @@ sentry_dsn="https://0c43c4980e10448f96fcbfcde8a93ef2@o555478.ingest.sentry.io/56
 [prod]
 
 [test]
+distributor_document_fixture="00000000000"

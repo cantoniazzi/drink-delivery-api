@@ -19,5 +19,8 @@ jobs:
       - name: Lint project
         run: make docker/lint
 
-      - name: Test project
-        run: make docker/test
+      - name: Unit tests
+        run: make docker/test-unit
+
+      - name: Integration tests
+        run: docker/test-integration

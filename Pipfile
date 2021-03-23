@@ -7,7 +7,11 @@ name = "pypi"
 dynaconf = "==3.1.4"
 fastapi = "==0.63.0"
 uvicorn = "==0.13.4"
-sentry-sdk = "*"
+sentry-sdk = "==1.0.0"
+sqlalchemy = "==1.4.2"
+geoalchemy2 = "==0.8.4"
+FastAPI-SQLAlchemy = "==0.2.1"
+psycopg2-binary = "==2.8.6"
 
 [dev-packages]
 flake8 = "==3.9.0"
