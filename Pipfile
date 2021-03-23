@@ -12,6 +12,7 @@ sqlalchemy = "==1.4.2"
 geoalchemy2 = "==0.8.4"
 FastAPI-SQLAlchemy = "==0.2.1"
 psycopg2-binary = "==2.8.6"
+starlette-prometheus = "0.7.0"
 
 [dev-packages]
 flake8 = "==3.9.0"
