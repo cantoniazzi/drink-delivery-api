@@ -1,0 +1,122 @@
+# Deployment
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: drink-delivery-api
+  namespace: namespace-of-the-squad
+  labels:
+    app: drink-delivery-api
+    env: ${ENVIRONMENT}
+    process: api
+    product: namespace-of-the-squad
+    release: "${ENVIRONMENT}"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: drink-delivery-api
+  strategy:
+    rollingUpdate:
+      maxUnavailable: 75%
+      maxSurge: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        name: drink-delivery-api
+        app: drink-delivery-api
+        env: ${ENVIRONMENT}
+        process: api
+        product: namespace-of-the-squad
+    spec:
+      containers:
+      - name: drink-delivery-api
+        image: docker-hub-org-repository/drink-delivery-api:${VERSION}
+        imagePullPolicy: IfNotPresent
+        command: ["python", "main.py"]
+        livenessProbe:
+          initialDelaySeconds: 90
+          periodSeconds: 15
+          successThreshold: 1
+          timeoutSeconds: 5
+          failureThreshold: 3
+          httpGet:
+            path: /healthcheck
+            port: 5000
+            scheme: HTTP
+            httpHeaders:
+              - name: Host
+                value: localhost
+        resources:
+          requests:
+            cpu: ${APP_REQUESTS_CPU}
+            memory: ${APP_REQUESTS_MEMORY}
+          limits:
+            cpu: ${APP_LIMIT_CPU}
+            memory: ${APP_LIMIT_MEMORY}
+        env:
+          - name: ENV_FOR_DYNACONF
+            value: ${ENV_FOR_DYNACONF}
+          - name: PG_HOST
+            value: ${PG_HOST}
+          - name: PG_USER
+            value: ${PG_USER}
+          - name: PG_PASSWORD
+            value: ${PG_PASSWORD}
+          - name: PG_PORT
+            value: ${PG_PORT}
+        ports:
+        - containerPort: 5000
+      restartPolicy: Always
+---
+# Service
+apiVersion: v1
+kind: Service
+metadata:
+  name: drink-delivery-api
+  namespace: namespace-of-the-squad
+  labels:
+    app: drink-delivery-api
+    env: ${ENVIRONMENT}
+    process: api
+    product: namespace-of-the-squad
+    release: "${VERSION}"
+spec:
+  type: ClusterIP
+  ports:
+    - port: 80
+      name: drink-delivery-api
+      targetPort: 5000
+  selector:
+    name: drink-delivery-api
+    process: api
+    product: namespace-of-the-squad
+  topologyKeys:
+    - "kubernetes.io/hostname"
+    - "topology.kubernetes.io/zone"
+    - "topology.kubernetes.io/region"
+    - "*"
+---
+# Ingress private
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: drink-delivery-api-private
+  namespace: namespace-of-the-squad
+  labels:
+    app: drink-delivery-api
+    env: ${ENVIRONMENT}
+    process: api
+    product: namespace-of-the-squad
+    release: "${VERSION}"
+  annotations:
+    kubernetes.io/ingress.class: "private"
+spec:
+  rules:
+  - host: drink-delivery-api.private.${ENVIRONMENT}.dns-of-the-org
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: drink-delivery-api
+          servicePort: 80
