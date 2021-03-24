@@ -49,7 +49,7 @@ make docker/build
 make docker/run
 ```
 
-If you want to run / debug the site, you can use the vscode [launch.json](https://github.com/cantoniazzi/drink-delivery-api/blob/main/.vscode/launch.json`) suggested by the project
+If you want to run / debug the site, you can use the vscode [launch.json](https://github.com/cantoniazzi/drink-delivery-api/blob/main/.vscode/launch.json) suggested by the project
 
 ## how to lint
 
