@@ -37,6 +37,8 @@ make docker/build
 make docker/run
 ```
 
+If you want to run / debug the site, you can use the vscode [launch.json](https://github.com/cantoniazzi/drink-delivery-api/blob/main/.vscode/launch.json`) suggested by the project
+
 ## how to lint
 
 ```sh
@@ -50,11 +52,21 @@ make docker/test-unit
 make docker/test-integration
 ```
 
-We separate a specific [document](`https://github.com/cantoniazzi/drink-delivery-api/blob/main/settings.toml#L10`) to be used in the integrations tests in a parameterized way. You can change this number in the configuration if you wish.
+We separate a specific [document](https://github.com/cantoniazzi/drink-delivery-api/blob/main/settings.toml#L10) to be used in the integrations tests in a parameterized way. You can change this number in the configuration if you wish.
 
 ## how to deploy
 
-in soon.
+##### k8s way
+
+In the deploy directory, there is a sample of Kubernetes app deployment that you can use as a template if you wish and if your infrastructure is prepared for Kubernetes apps. If you choose to do so, you will need to include a command in the CD flow to apply the deployment to your cluster. See more [here](https://kubernetes.io/docs/concepts/workloads/controllers/deployment//).
+
+##### AWS lambda way
+
+If you choose to deploy this API as a lambda you will need to use a library that envelopes the code into the lambda format (maybe this lib [Mangum](https://github.com/jordaneremieff/mangum) makes sense) and then proceeds to the lambda deployment process usually using flow with AWS S3 and AWS SAM
+
+##### database
+
+For the creation of the database, we recommend that you create a [cloud formation template](https://docs.aws.amazon.com/pt_br/AWSCloudFormation/latest/UserGuide/aws-properties-rds-database-instance.html) and then run it on the AWS panel to create the database. Once this is done, it will be necessary to create the API table in your bank and for this, you must use the .sql script contained in the database directory of this repository.
 
 ## miscellanies
 
