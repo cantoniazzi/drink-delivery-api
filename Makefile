@@ -1,6 +1,5 @@
 APP_NAME="drink-delivery-api"
 
-### docker commands
 docker/build:
 		docker-compose build ${APP_NAME}
 
@@ -18,16 +17,8 @@ docker/test-unit:
 		docker-compose run -e ENV_FOR_DYNACONF=test ${APP_NAME} \
 		python -m pytest -s --pyargs ./tests/unit -s ./app
 
+local/init:
+		pipenv shell
 
-### local commands
-local/install:
-		pipenv install --dev
-
-local/lint:
-		flake8 app/
-
-local/run:
-		python main.py
-
-local/test:
-		python -m pytest ./app --pyargs ./tests
+local/diagram:
+		python docs/diagram.py
