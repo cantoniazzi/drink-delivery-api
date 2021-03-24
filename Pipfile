@@ -18,6 +18,7 @@ starlette-prometheus = "0.7.0"
 flake8 = "==3.9.0"
 pytest = "==6.2.2"
 requests = "==2.25.1"
+diagrams = "*"
 
 [requires]
 python_version = "3.8"
