@@ -19,6 +19,18 @@ It's responsible for managing the registration flow of beverage distributors.
 - [Docker](https://www.docker.com/get-started)
 - [Docker Compose](https://docs.docker.com/compose/)
 
+## docs
+
+Run the API:
+
+```sh
+make docker/run
+```
+
+and access:
+
+docs: [http://localhost:5000/docs](http://localhost:5000/docs)  || redoc: [http://localhost:5000/redoc](http://localhost:5000/redoc)
+
 ## monitoring
 
 - [X] - [Sentry](https://sentry.io/organizations/cassiosvaldo/issues/?project=5685277)
@@ -55,12 +67,12 @@ make docker/test-integration
 We separate a specific [document](https://github.com/cantoniazzi/drink-delivery-api/blob/main/settings.toml#L10) to be used in the integrations tests in a parameterized way. You can change this number in the configuration if you wish.
 
 ## how to deploy
+
 For the CD process, a GH workflow should be created, which is triggered by the case of a new release and thus, executes the commands to deploy the application to the respective environment.
 
 ##### k8s way
+
 In the deploy directory, there is a sample of Kubernetes app deployment which you can use as a template if you want and if your infrastructure is prepared for Kubernetes apps. If you choose to do so, you'll need to include a command in the CD flow to add the deployment to your cluster. Check out more information [here](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/):
-
-
 
 ##### AWS lambda way
 
@@ -69,7 +81,6 @@ If you choose to deploy this API as a lambda, you will have to use a library tha
 ##### database
 
 For the creation of the database, we recommend that you create a [cloud formation template](https://docs.aws.amazon.com/pt_br/AWSCloudFormation/latest/UserGuide/aws-properties-rds-database-instance.html) and then run it on the AWS panel to create the database. Once it's done, it will be necessary to create the API table in your bank and for that, you should use the .sql script contained in the database directory of this repository.
-
 
 ## miscellanies
 

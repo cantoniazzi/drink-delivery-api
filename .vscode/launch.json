@@ -1,0 +1,20 @@
+{
+"version": "0.2.0",
+  "configurations": [
+    {
+      "name": "drink development",
+      "type": "python",
+      "request": "launch",
+      "program": "${workspaceFolder}/main.py",
+      "console": "integratedTerminal",
+      "env": {
+          "ENV_FOR_DYNACONF": "development",
+          "PG_HOST": "127.0.0.1",
+          "PG_USER": "drink_delivery",
+          "PG_PASSWORD": "drink_delivery",
+          "PG_DB": "drink_delivery",
+          "PG_PORT": "5432",
+      },
+    }
+  ]
+}

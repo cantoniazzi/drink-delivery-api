@@ -130,6 +130,3 @@ dmypy.json
 
 # OS stuff
 .DS_Store
-
-# EDITORS stuff
-.vscode/
